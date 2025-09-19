@@ -60,7 +60,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'RIML.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
@@ -70,7 +69,6 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
@@ -90,7 +88,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
 
@@ -102,7 +99,6 @@ USE_I18N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
@@ -113,14 +109,19 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
 # AWS S3 Settings
-AWS_ACCESS_KEY_ID = 'your-access-key-id'
-AWS_SECRET_ACCESS_KEY = 'your-secret-access-key'
-AWS_STORAGE_BUCKET_NAME = 'your-bucket-name'
-AWS_S3_REGION_NAME = 'your-region'  # e.g., 'us-east-1'
-AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
-AWS_DEFAULT_ACL = 'public-read'
-AWS_S3_OBJECT_PARAMETERS = {
-    'CacheControl': 'max-age=86400',
+STORAGES = {
+    "default": {
+        "BACKEND": "storages.backends.s3.S3Storage",
+        "OPTIONS": {
+            "access_key": os.environ['AWS_ACCESS_KEY'],
+            "secret_key": os.environ['AWS_SECRET_KEY'],
+            "bucket_name": os.environ['AWS_STORAGE_BUCKET_NAME'],
+            "endpoint_url": "https://s3.ir-thr-at1.arvanstorage.ir",
+        },
+    },
+    "staticfiles": {
+        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+    },
 }
 
 # Use S3 for media files
