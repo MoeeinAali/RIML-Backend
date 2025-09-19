@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.text import slugify
+from core.models import TeamMember
 
 
 def publisher_logo_image_path(instance, filename):
@@ -21,10 +22,12 @@ class Publisher(models.Model):
 
 
 class Publication(models.Model):
-    title = models.CharField(max_length=1023)
-    authors = models.CharField(max_length=1023, blank=True, null=True)
+    title = models.TextField()
+    authors = models.TextField(blank=True, null=True)
     publisher = models.ForeignKey(
         Publisher, on_delete=models.CASCADE, blank=True, null=True, related_name="publications")
+    team_members = models.ManyToManyField(
+        TeamMember, blank=True, null=True, related_name="publications")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
