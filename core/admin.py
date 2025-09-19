@@ -2,6 +2,10 @@ from django.contrib import admin
 from .models import Team, TeamMember
 
 
+admin.site.site_header = "RIML"
+admin.site.site_title = "RIML"
+admin.site.index_title = "Admin Panel"
+
 @admin.register(Team)
 class TeamAdmin(admin.ModelAdmin):
     list_display = ('name', 'members_count', 'order',)
