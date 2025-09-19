@@ -116,7 +116,7 @@ STORAGES = {
             "access_key": os.environ['AWS_ACCESS_KEY'],
             "secret_key": os.environ['AWS_SECRET_KEY'],
             "bucket_name": os.environ['AWS_STORAGE_BUCKET_NAME'],
-            "endpoint_url": "https://s3.ir-thr-at1.arvanstorage.ir",
+            "endpoint_url": "https://s3.ir-tbz-sh1.arvanstorage.ir",
         },
     },
     "staticfiles": {
