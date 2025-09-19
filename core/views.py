@@ -1,3 +1,11 @@
-from django.shortcuts import render
+from rest_framework import generics
+from rest_framework.permissions import AllowAny
+from .models import Team, TeamMember
+from .serializers import TeamSerializer, TeamMemberSerializer
 
-# Create your views here.
+
+class TeamListAPIView(generics.ListAPIView):
+    queryset = Team.objects.all()
+    serializer_class = TeamSerializer
+    permission_classes = [AllowAny]
+
