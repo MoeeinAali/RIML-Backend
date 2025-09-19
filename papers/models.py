@@ -21,24 +21,26 @@ class Publisher(models.Model):
         return f"{self.name}-{self.year}" if self.year else self.name
 
 
+class PublicationBadge(models.Model):
+    name = models.CharField(max_length=127)
+    label = models.CharField(max_length=127)
+    link = models.CharField(max_length=127)
+
+    def __str__(self):
+        return f"{self.label} : {self.link}"
+
+
 class Publication(models.Model):
     title = models.TextField()
     authors = models.TextField(blank=True, null=True)
     publisher = models.ForeignKey(
         Publisher, on_delete=models.CASCADE, blank=True, null=True, related_name="publications")
     team_members = models.ManyToManyField(
-        TeamMember, blank=True, null=True, related_name="publications")
+        TeamMember, blank=True, related_name="publications")
+    publication_badges = models.ManyToManyField(
+        PublicationBadge, blank=True, related_name="publications")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.title
-
-
-class PublicationBadge(models.Model):
-    name = models.CharField(max_length=127)
-    label = models.CharField(max_length=127)
-    link = models.CharField(max_length=127)
-    
-    def __str__(self):
-        return self.name

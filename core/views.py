@@ -1,7 +1,7 @@
 from rest_framework import generics
 from rest_framework.permissions import AllowAny
-from .models import Team, TeamMember
-from .serializers import TeamSerializer, TeamMemberSerializer
+from .models import Team
+from .serializers import TeamSerializer
 
 
 class TeamListAPIView(generics.ListAPIView):
