@@ -28,12 +28,6 @@ class Publication(models.Model):
         Publisher, on_delete=models.CASCADE, blank=True, null=True, related_name="publications")
     team_members = models.ManyToManyField(
         TeamMember, blank=True, null=True, related_name="publications")
-    badges = models.ManyToManyField(
-        "PublicationBadge",
-        blank=True,
-        related_name="publications",
-        through="PublicationBadgeLink",
-    )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -48,14 +42,3 @@ class PublicationBadge(models.Model):
     
     def __str__(self):
         return self.name
-
-
-class PublicationBadgeLink(models.Model):
-    publication = models.ForeignKey(Publication, on_delete=models.CASCADE)
-    badge = models.ForeignKey(PublicationBadge, on_delete=models.CASCADE)
-
-    class Meta:
-        unique_together = ("publication", "badge")
-
-    def __str__(self):
-        return f"{self.publication} ↔ {self.badge}"
