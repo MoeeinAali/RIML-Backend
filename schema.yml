@@ -1,0 +1,297 @@
+openapi: 3.0.3
+info:
+  title: RIML API Documentation
+  version: 1.0.0
+  description: Research Institute for Machine Learning - API Documentation
+paths:
+  /api/core/teams/:
+    get:
+      operationId: core_teams_list
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      tags:
+      - core
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedTeamList'
+          description: ''
+  /api/papers/publications/:
+    get:
+      operationId: papers_publications_list
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      tags:
+      - papers
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedPublicationListList'
+          description: ''
+  /api/papers/publications/{id}/:
+    get:
+      operationId: papers_publications_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - papers
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicationDetail'
+          description: ''
+components:
+  schemas:
+    PaginatedPublicationListList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/PublicationList'
+    PaginatedTeamList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Team'
+    PublicationBadge:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 127
+        label:
+          type: string
+          maxLength: 127
+        link:
+          type: string
+          maxLength: 127
+      required:
+      - id
+      - label
+      - link
+      - name
+    PublicationDetail:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        title:
+          type: string
+        authors:
+          type: string
+          nullable: true
+        publisher:
+          allOf:
+          - $ref: '#/components/schemas/Publisher'
+          readOnly: true
+        publication_badges:
+          type: array
+          items:
+            $ref: '#/components/schemas/PublicationBadge'
+          readOnly: true
+        team_members:
+          type: array
+          items:
+            $ref: '#/components/schemas/TeamMember'
+          readOnly: true
+      required:
+      - id
+      - publication_badges
+      - publisher
+      - team_members
+      - title
+    PublicationList:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        title:
+          type: string
+        authors:
+          type: string
+          nullable: true
+        publisher:
+          allOf:
+          - $ref: '#/components/schemas/Publisher'
+          readOnly: true
+        publication_badges:
+          type: array
+          items:
+            $ref: '#/components/schemas/PublicationBadge'
+          readOnly: true
+      required:
+      - id
+      - publication_badges
+      - publisher
+      - title
+    Publisher:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        year:
+          type: integer
+          nullable: true
+        logo:
+          type: string
+          format: uri
+          nullable: true
+      required:
+      - id
+      - name
+    Team:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        description:
+          type: string
+        members:
+          type: array
+          items:
+            $ref: '#/components/schemas/TeamMember'
+          readOnly: true
+      required:
+      - id
+      - members
+      - name
+    TeamMember:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        first_name:
+          type: string
+          maxLength: 255
+        last_name:
+          type: string
+          maxLength: 255
+        position:
+          type: string
+          maxLength: 255
+        bio:
+          type: string
+        image:
+          type: string
+          format: uri
+          nullable: true
+        email:
+          type: string
+          format: email
+          maxLength: 254
+        linkedin_url:
+          type: string
+          format: uri
+          maxLength: 255
+        github_url:
+          type: string
+          format: uri
+          maxLength: 255
+        twitter_url:
+          type: string
+          format: uri
+          maxLength: 255
+        website_url:
+          type: string
+          format: uri
+          maxLength: 255
+        scholar_url:
+          type: string
+          format: uri
+          maxLength: 255
+      required:
+      - first_name
+      - id
+      - last_name
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: sessionid
+servers:
+- url: http://localhost:8000
+  description: Development server

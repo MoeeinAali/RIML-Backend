@@ -18,7 +18,7 @@ STATICFILES_DIRS = [
 
 UNFOLD = {
     "SITE_TITLE": "RIML Admin Panel",
-    "SITE_HEADER": "RIML - Research Institute for Machine Learning",
+    "SITE_HEADER": "RIML - Robust and Interpretable Machine Learning",
     "SITE_SUBHEADER": _("Research Publications & Team Management"),
     "SITE_LOGO": f"{STATIC_URL}riml.svg",
     "SITE_LOGO_WIDTH": "200px",
@@ -130,6 +130,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'drf_spectacular',
     'core',
     'papers',
 ]
@@ -222,6 +223,27 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# REST Framework Configuration
+REST_FRAMEWORK = {
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+
+# Spectacular (Swagger) Configuration
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'RIML API Documentation',
+    'DESCRIPTION': 'Robust and Interpretable Machine Learning - API Documentation',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+    'COMPONENT_SPLIT_REQUEST': True,
+    'SCHEMA_PATH_PREFIX': '/api/',
+    'SERVERS': [
+        {
+            'url': 'http://localhost:8000',
+            'description': 'Development server',
+        },
+    ],
+}
 
 STORAGES = {
     "default": {
