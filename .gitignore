@@ -293,3 +293,4 @@ venv/
 
 /staticfiles/*/
 /staticfiles/*/*
+schema.yml
