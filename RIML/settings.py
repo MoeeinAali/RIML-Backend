@@ -1,11 +1,82 @@
 from pathlib import Path
 from dotenv import load_dotenv
 import os
+from django.utils.translation import gettext_lazy as _
+from django.templatetags.static import static
+from django.urls import reverse_lazy
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 load_dotenv(f"{BASE_DIR}/.env")
+
+STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+STATICFILES_DIRS = [
+    BASE_DIR / 'static',
+]
+
+UNFOLD = {
+    "SITE_TITLE": "Admin Panel",
+    "SITE_HEADER": "Uranus",
+    "SITE_SUBHEADER": _(""),
+    "SITE_LOGO": f"{STATIC_URL}riml.svg",
+    "SITE_LOGO_WIDTH": "5000px",
+
+    "STYLES": [
+        lambda request: f"{STATIC_URL}css/admin.css",
+    ],
+
+    "COMMAND": {
+        "search_models": True,
+        "search_callback": "utils.search_callback",
+        "show_history": True,
+    },
+
+    "COLORS": {
+        "primary": {
+            "50": "236, 254, 255",
+            "100": "207, 250, 254",
+            "200": "165, 243, 252",
+            "300": "103, 232, 249",
+            "400": "34, 211, 238",
+            "500": "6, 182, 212",
+            "600": "8, 145, 178",
+            "700": "14, 116, 144",
+            "800": "21, 94, 117",
+            "900": "22, 78, 99",
+            "950": "8, 51, 68",
+        },
+        "base": {
+            "50": "249, 250, 251",
+            "100": "243, 244, 246",
+            "200": "229, 231, 235",
+            "300": "209, 213, 219",
+            "400": "156, 163, 175",
+            "500": "107, 114, 128",
+            "600": "75, 85, 99",
+            "700": "55, 65, 81",
+            "800": "31, 41, 55",
+            "900": "17, 24, 39",
+            "950": "3, 7, 18",
+        },
+        "font": {
+            "subtle-light": "var(--color-base-500)",
+            "subtle-dark": "var(--color-base-400)",
+            "default-light": "var(--color-base-600)",
+            "default-dark": "var(--color-base-300)",
+            "important-light": "var(--color-base-900)",
+            "important-dark": "var(--color-base-100)",
+        },
+    },
+    "SIDEBAR": {
+        "show_search": True,
+        "show_all_applications": False,
+    },
+}
+
+# Build paths inside the project like this: BASE_DIR / 'subdir'.
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
@@ -20,6 +91,9 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    'unfold',
+    "unfold.contrib.forms",
+    "unfold.contrib.filters",
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -116,13 +190,6 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / 'staticfiles'
-
-# Additional static files directories
-STATICFILES_DIRS = [
-    BASE_DIR / 'static',
-]
 
 # Media files (User uploaded files)
 MEDIA_URL = '/media/'
