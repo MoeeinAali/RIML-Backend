@@ -71,7 +71,78 @@ UNFOLD = {
     },
     "SIDEBAR": {
         "show_search": True,
-        "show_all_applications": False,
+        "show_all_applications": True,
+        "navigation": [
+            {
+                "title": _("Authentication & Authorization"),
+                "separator": True,
+                "collapsible": True,
+                "items": [
+                    {"title": _("Users"), "icon": "person",
+                     "link": reverse_lazy("admin:auth_user_changelist")},
+                    {"title": _("Groups"), "icon": "group",
+                     "link": reverse_lazy("admin:auth_group_changelist")},
+                ],
+            },
+
+            {
+                "title": _("Configs"),
+                "separator": True,
+                "collapsible": True,
+                "items": [
+                    {"title": _("Configs"), "icon": "tune",
+                     "link": reverse_lazy("admin:configs_config_changelist")},
+                    {"title": _("Custom CSSs"), "icon": "style",
+                     "link": reverse_lazy("admin:configs_customcss_changelist")},
+                ],
+            },
+
+            {
+                "title": _("Forms"),
+                "separator": True,
+                "collapsible": True,
+                "items": [
+                    {"title": _("Forms"), "icon": "description",
+                     "link": reverse_lazy("admin:form_form_changelist")},
+                    {"title": _("Questions"), "icon": "help_center",
+                     "link": reverse_lazy("admin:form_question_changelist")},
+                    {"title": _("Options"), "icon": "list",
+                     "link": reverse_lazy("admin:form_option_changelist")},
+                    {"title": _("Answers"), "icon": "chat",
+                     "link": reverse_lazy("admin:form_answer_changelist")},
+                    {"title": _("Answer selected options"), "icon": "checklist",
+                     "link": reverse_lazy("admin:form_answerselectedoption_changelist")},
+                    {"title": _("Submissions"), "icon": "inbox",
+                     "link": reverse_lazy("admin:form_submission_changelist")},
+                ],
+            },
+
+            {
+                "title": _("Brands & Campaigns"),
+                "separator": True,
+                "collapsible": True,
+                "items": [
+                    {"title": _("Brands"), "icon": "loyalty",
+                     "link": reverse_lazy("admin:gallery_brand_changelist")},
+                    {"title": _("Campaigns"), "icon": "campaign",
+                     "link": reverse_lazy("admin:gallery_campaign_changelist")},
+                    {"title": _("Proposal Files"), "icon": "description",
+                     "link": reverse_lazy("admin:proposal_proposalfile_changelist")},
+                ],
+            },
+
+            {
+                "title": _("Helpers"),
+                "separator": True,
+                "collapsible": True,
+                "items": [
+                    {"title": _("Help icons"), "icon": "help",
+                     "link": reverse_lazy("admin:gallery_helpicon_changelist")},
+                    {"title": _("Help texts"), "icon": "article",
+                     "link": reverse_lazy("admin:gallery_helptext_changelist")},
+                ],
+            },
+        ],
     },
 }
 
