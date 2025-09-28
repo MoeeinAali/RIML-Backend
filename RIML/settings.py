@@ -17,11 +17,11 @@ STATICFILES_DIRS = [
 ]
 
 UNFOLD = {
-    "SITE_TITLE": "Admin Panel",
-    "SITE_HEADER": "Uranus",
-    "SITE_SUBHEADER": _(""),
+    "SITE_TITLE": "RIML Admin Panel",
+    "SITE_HEADER": "RIML - Research Institute for Machine Learning",
+    "SITE_SUBHEADER": _("Research Publications & Team Management"),
     "SITE_LOGO": f"{STATIC_URL}riml.svg",
-    "SITE_LOGO_WIDTH": "5000px",
+    "SITE_LOGO_WIDTH": "200px",
 
     "STYLES": [
         lambda request: f"{STATIC_URL}css/admin.css",
@@ -29,23 +29,22 @@ UNFOLD = {
 
     "COMMAND": {
         "search_models": True,
-        "search_callback": "utils.search_callback",
         "show_history": True,
     },
 
     "COLORS": {
         "primary": {
-            "50": "236, 254, 255",
-            "100": "207, 250, 254",
-            "200": "165, 243, 252",
-            "300": "103, 232, 249",
-            "400": "34, 211, 238",
-            "500": "6, 182, 212",
-            "600": "8, 145, 178",
-            "700": "14, 116, 144",
-            "800": "21, 94, 117",
-            "900": "22, 78, 99",
-            "950": "8, 51, 68",
+            "50": "255, 248, 235",
+            "100": "254, 240, 205",
+            "200": "252, 225, 158",
+            "300": "249, 203, 107",
+            "400": "244, 187, 70",
+            "500": "244, 187, 70",
+            "600": "220, 149, 35",
+            "700": "184, 114, 28",
+            "800": "147, 91, 22",
+            "900": "115, 71, 17",
+            "950": "69, 43, 10",
         },
         "base": {
             "50": "249, 250, 251",
@@ -86,80 +85,39 @@ UNFOLD = {
             },
 
             {
-                "title": _("Configs"),
+                "title": _("Team Management"),
                 "separator": True,
                 "collapsible": True,
                 "items": [
-                    {"title": _("Configs"), "icon": "tune",
-                     "link": reverse_lazy("admin:configs_config_changelist")},
-                    {"title": _("Custom CSSs"), "icon": "style",
-                     "link": reverse_lazy("admin:configs_customcss_changelist")},
+                    {"title": _("Teams"), "icon": "groups",
+                     "link": reverse_lazy("admin:core_team_changelist")},
+                    {"title": _("Team Members"), "icon": "person_add",
+                     "link": reverse_lazy("admin:core_teammember_changelist")},
                 ],
             },
 
             {
-                "title": _("Forms"),
+                "title": _("Publications"),
                 "separator": True,
                 "collapsible": True,
                 "items": [
-                    {"title": _("Forms"), "icon": "description",
-                     "link": reverse_lazy("admin:form_form_changelist")},
-                    {"title": _("Questions"), "icon": "help_center",
-                     "link": reverse_lazy("admin:form_question_changelist")},
-                    {"title": _("Options"), "icon": "list",
-                     "link": reverse_lazy("admin:form_option_changelist")},
-                    {"title": _("Answers"), "icon": "chat",
-                     "link": reverse_lazy("admin:form_answer_changelist")},
-                    {"title": _("Answer selected options"), "icon": "checklist",
-                     "link": reverse_lazy("admin:form_answerselectedoption_changelist")},
-                    {"title": _("Submissions"), "icon": "inbox",
-                     "link": reverse_lazy("admin:form_submission_changelist")},
-                ],
-            },
-
-            {
-                "title": _("Brands & Campaigns"),
-                "separator": True,
-                "collapsible": True,
-                "items": [
-                    {"title": _("Brands"), "icon": "loyalty",
-                     "link": reverse_lazy("admin:gallery_brand_changelist")},
-                    {"title": _("Campaigns"), "icon": "campaign",
-                     "link": reverse_lazy("admin:gallery_campaign_changelist")},
-                    {"title": _("Proposal Files"), "icon": "description",
-                     "link": reverse_lazy("admin:proposal_proposalfile_changelist")},
-                ],
-            },
-
-            {
-                "title": _("Helpers"),
-                "separator": True,
-                "collapsible": True,
-                "items": [
-                    {"title": _("Help icons"), "icon": "help",
-                     "link": reverse_lazy("admin:gallery_helpicon_changelist")},
-                    {"title": _("Help texts"), "icon": "article",
-                     "link": reverse_lazy("admin:gallery_helptext_changelist")},
+                    {"title": _("Publishers"), "icon": "business",
+                     "link": reverse_lazy("admin:papers_publisher_changelist")},
+                    {"title": _("Publications"), "icon": "article",
+                     "link": reverse_lazy("admin:papers_publication_changelist")},
+                    {"title": _("Publication Badges"), "icon": "verified",
+                     "link": reverse_lazy("admin:papers_publicationbadge_changelist")},
                 ],
             },
         ],
     },
 }
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ['SECRET_KEY']
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = bool(os.environ['DEBUG'])
+DEBUG = bool(os.environ['DEBUG'] if os.environ['DEBUG'] else True)
 
 ALLOWED_HOSTS = ['*']
-
-# Application definition
 
 INSTALLED_APPS = [
     'unfold',
@@ -205,9 +163,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'RIML.wsgi.application'
-
-# Database
-# https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 # Use PostgreSQL in Docker, SQLite for local development
 if os.environ.get('POSTGRES_DB'):
