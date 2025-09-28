@@ -290,3 +290,6 @@ fabric.properties
 .idea/
 venv/
 .vsocde/
+
+/staticfiles/*/
+/staticfiles/*/*
