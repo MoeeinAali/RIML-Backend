@@ -13,7 +13,7 @@ load_dotenv(f"{BASE_DIR}/.env")
 SECRET_KEY = os.environ['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = bool(os.environ['DEBUG'])
 
 ALLOWED_HOSTS = ['*']
 
