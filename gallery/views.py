@@ -5,7 +5,6 @@ from papers.views import CustomPagination
 from .serializers import GalleryImageListSerializer
 
 
-# Create your views here.
 class GalleryImageListView(generics.ListAPIView):
     queryset = GalleryImage.objects.all()
     serializer_class = GalleryImageListSerializer

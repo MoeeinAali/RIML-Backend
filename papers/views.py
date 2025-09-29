@@ -7,7 +7,7 @@ from .serializers import PublicationListSerializer, PublicationDetailSerializer
 
 
 class CustomPagination(PageNumberPagination):
-    page_size = 5
+    page_size = 6
     
     def get_paginated_response(self, data):
         next_page = None
