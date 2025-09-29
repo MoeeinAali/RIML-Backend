@@ -133,6 +133,7 @@ INSTALLED_APPS = [
     'drf_spectacular',
     'core',
     'papers',
+    'gallery'
 ]
 
 MIDDLEWARE = [
