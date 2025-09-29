@@ -1,4 +1,5 @@
 from rest_framework import generics
+from django.db.models import F
 from rest_framework.permissions import AllowAny
 from .models import GalleryImage
 from papers.views import CustomPagination
@@ -6,7 +7,7 @@ from .serializers import GalleryImageListSerializer
 
 
 class GalleryImageListView(generics.ListAPIView):
-    queryset = GalleryImage.objects.all()
+    queryset = GalleryImage.objects.all().order_by(F('date').desc(nulls_last=True), '-created_at')
     serializer_class = GalleryImageListSerializer
     permission_classes = [AllowAny]
     pagination_class = CustomPagination

@@ -6,7 +6,7 @@ from core.admin import custom_admin_site
 
 @admin.register(GalleryImage)
 class GalleryImageAdmin(ModelAdmin):
-    list_display = ("id", "title",)
+    list_display = ("id", "title", 'date',)
     search_fields = ("id", 'title',)
 
 
