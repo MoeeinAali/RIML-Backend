@@ -133,7 +133,8 @@ INSTALLED_APPS = [
     'drf_spectacular',
     'core',
     'papers',
-    'gallery'
+    'gallery',
+    'club'
 ]
 
 MIDDLEWARE = [

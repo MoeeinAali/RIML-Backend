@@ -9,11 +9,11 @@ urlpatterns = [
     path('api/core/', include('core.urls')),
     path('api/papers/', include('papers.urls')),
     path('api/gallery/', include('gallery.urls')),
+    path('api/club/', include('club.urls')),
 
     path('swagger/schema/', SpectacularAPIView.as_view(), name='schema'),
     path('swagger/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger'),
 ]
 
-# Serve static files (always)
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
