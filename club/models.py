@@ -10,6 +10,12 @@ def field_image_path(instance, filename):
     return f"club/fields/{instance.name}.{ext}"
 
 
+def journal_image_path(instance, filename):
+    ext = (Path(filename).suffix or "").lower().lstrip(".")
+    ext = ext or "jpg"
+    return f"club/journals/{instance.name}.{ext}"
+
+
 class ResearchField(models.Model):
     name = models.CharField(max_length=255)
     image = models.ImageField(
@@ -44,6 +50,12 @@ class JournalClub(models.Model):
     )
     research_fields = models.ManyToManyField(
         ResearchField, blank=True, related_name="journal_clubs"
+    )
+    image = models.ImageField(
+        null=True,
+        blank=True,
+        upload_to=journal_image_path,
+        validators=[FileExtensionValidator(allowed_extensions=["jpg", "jpeg", "png", "webp"])],
     )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
