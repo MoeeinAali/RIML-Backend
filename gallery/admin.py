@@ -1,3 +1,13 @@
+from unfold.admin import ModelAdmin
+from .models import GalleryImage
 from django.contrib import admin
+from core.admin import custom_admin_site
 
-# Register your models here.
+
+@admin.register(GalleryImage)
+class GalleryImageAdmin(ModelAdmin):
+    list_display = ("id", "title",)
+    search_fields = ("id", 'title',)
+
+
+custom_admin_site.register(GalleryImage, GalleryImageAdmin)
