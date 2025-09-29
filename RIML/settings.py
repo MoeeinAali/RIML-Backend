@@ -109,6 +109,28 @@ UNFOLD = {
                      "link": reverse_lazy("admin:papers_publicationbadge_changelist")},
                 ],
             },
+
+            {
+                "title": _("Research Club"),
+                "separator": True,
+                "collapsible": True,
+                "items": [
+                    {"title": _("Research Fields"), "icon": "science",
+                     "link": reverse_lazy("admin:club_researchfield_changelist")},
+                    {"title": _("Journal Clubs"), "icon": "library_books",
+                     "link": reverse_lazy("admin:club_journalclub_changelist")},
+                ],
+            },
+
+            {
+                "title": _("Gallery"),
+                "separator": True,
+                "collapsible": True,
+                "items": [
+                    {"title": _("Gallery Images"), "icon": "photo_library",
+                     "link": reverse_lazy("admin:gallery_galleryimage_changelist")},
+                ],
+            },
         ],
     },
 }
