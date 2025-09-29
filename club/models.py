@@ -1,0 +1,23 @@
+from django.db import models
+from django.core.validators import FileExtensionValidator
+from pathlib import Path
+
+
+def field_image_path(instance, filename):
+    ext = (Path(filename).suffix or "").lower().lstrip(".")
+    ext = ext or "jpg"
+    return f"club/fields/{instance.name}.{ext}"
+
+
+class ResearchField(models.Model):
+    name = models.CharField(max_length=255)
+    image = models.ImageField(
+        upload_to=field_image_path,
+        validators=[FileExtensionValidator(allowed_extensions=["jpg", "jpeg", "png", "webp"])],
+    )
+    markdown = models.TextField(blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name
