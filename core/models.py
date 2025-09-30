@@ -33,7 +33,7 @@ class TeamMember(models.Model):
     position = models.CharField(max_length=255, blank=True)
     bio = models.TextField(blank=True)
     image = models.ImageField(upload_to=team_member_image_path, null=True, blank=True)
-    email = models.EmailField(unique=True, blank=True)
+    email = models.EmailField(blank=True)
     linkedin_url = models.URLField(max_length=255, blank=True)
     github_url = models.URLField(max_length=255, blank=True)
     twitter_url = models.URLField(max_length=255, blank=True)
