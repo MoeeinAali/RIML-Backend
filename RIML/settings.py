@@ -137,7 +137,7 @@ UNFOLD = {
 
 SECRET_KEY = os.environ['SECRET_KEY']
 
-DEBUG = bool(os.environ['DEBUG'])
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
