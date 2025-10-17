@@ -9,7 +9,7 @@ from .views import (
 urlpatterns = [
     # Research Field URLs
     path('research-fields/', ResearchFieldListView.as_view(), name='research-field-list'),
-    path('research-fields/<int:pk>/', ResearchFieldDetailView.as_view(), name='research-field-detail'),
+    path('research-fields/<str:name>/', ResearchFieldDetailView.as_view(), name='research-field-detail'),
     
     # Journal Club URLs
     path('journal-clubs/', JournalClubListView.as_view(), name='journal-club-list'),

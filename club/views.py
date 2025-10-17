@@ -21,6 +21,8 @@ class ResearchFieldDetailView(generics.RetrieveAPIView):
     queryset = ResearchField.objects.all()
     serializer_class = ResearchFieldDetailSerializer
     permission_classes = [AllowAny]
+    lookup_field = "name"
+    lookup_url_kwarg = "name"
 
 
 class JournalClubListView(generics.ListAPIView):
