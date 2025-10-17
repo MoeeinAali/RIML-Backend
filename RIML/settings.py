@@ -145,6 +145,7 @@ INSTALLED_APPS = [
     'unfold',
     "unfold.contrib.forms",
     "unfold.contrib.filters",
+    'corsheaders',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -160,6 +161,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -169,6 +171,16 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+CORS_ALLOWED_ORIGIN_REGEXES = [
+    r"^https?://(.+\.)?rimllab\.ir$",
+]
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:3000',
+    'https://*.rimllab.ir',
+    'https://rimllab.ir'
+]
+CORS_ALLOW_CREDENTIALS = True
 
 ROOT_URLCONF = 'RIML.urls'
 
