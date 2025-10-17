@@ -14,7 +14,6 @@ class ResearchFieldListView(generics.ListAPIView):
     queryset = ResearchField.objects.all()
     serializer_class = ResearchFieldListSerializer
     permission_classes = [AllowAny]
-    pagination_class = CustomPagination
 
 
 class ResearchFieldDetailView(generics.RetrieveAPIView):
