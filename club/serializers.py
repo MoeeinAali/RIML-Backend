@@ -21,7 +21,7 @@ class JournalClubListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = JournalClub
-        fields = ['title', 'date', 'time', 'attendance_type', 'research_fields', 'image', ]
+        fields = ['title', 'date', 'time', 'attendance_type', 'research_fields', 'image', 'id',]
 
 
 class JournalClubDetailSerializer(serializers.ModelSerializer):
